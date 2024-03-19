@@ -1,7 +1,11 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import TodoContext from '../../context/TodoContext';
 
-const AddTodo = ({ addTodos }) => {
+const AddTodo = () => {
+    const todoContext = useContext(TodoContext);
+    const { todos, setTodos } = todoContext;
     const [todoText, setTodoText] = useState('');
+
     return (
         <>
             <input
@@ -11,7 +15,11 @@ const AddTodo = ({ addTodos }) => {
             />
             <button
                 onClick={() => {
-                    addTodos(todoText);
+                    let nextId = todos.length + 1;
+                    setTodos([
+                        ...todos,
+                        { id: nextId, text: todoText, isfinished: false },
+                    ]);
                     setTodoText('');
                 }}
             >
