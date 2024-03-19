@@ -5,6 +5,26 @@ const TodoList = ({ todos, setTodos }) => {
         const newTodoList = todos.filter((todo) => todo.id != id);
         setTodos(newTodoList);
     }
+
+    function onEditTodo(id, newTodo) {
+        const newTodoList = todos.map((todo) => {
+            if (todo.id == id) {
+                todo.text = newTodo;
+            }
+            return todo;
+        });
+        setTodos(newTodoList);
+    }
+
+    function onFinishTodo(id, state) {
+        const newTodoList = todos.map((todo) => {
+            if (todo.id == id) {
+                todo.isfinished = state;
+            }
+            return todo;
+        });
+        setTodos(newTodoList);
+    }
     return (
         <>
             {todos &&
@@ -14,7 +34,9 @@ const TodoList = ({ todos, setTodos }) => {
                         text={todo.text}
                         id={todo.id}
                         isfinished={todo.isfinished}
+                        editTodo={(newTodo) => onEditTodo(todo.id, newTodo)}
                         deleteTodo={() => onDeleteTodo(todo.id)}
+                        finishTodo={(state) => onFinishTodo(todo.id, state)}
                     />
                 ))}
         </>

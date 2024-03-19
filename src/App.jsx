@@ -13,6 +13,7 @@ const App = () => {
         let nextId = todos.length + 1;
         setTodos([...todos, { id: nextId, isfinished: false, text: todoText }]);
     }
+
     return (
         <>
             <AddTodo addTodos={addTodos} />
